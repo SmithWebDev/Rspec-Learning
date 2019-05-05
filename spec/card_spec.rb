@@ -156,7 +156,36 @@ end
 #   end
 # end
 
+#EX. 4
+class Card
+  attr_accessor :rank, :suit                                   #Attr_accessor gives capability to read/write data
+  def initialize(rank, suit)
+    @rank = rank
+    @suit = suit
+  end
+end
 
+RSpec.describe Card do
+  let(:card) {Card.new('Ace', 'Spades')}                    #'Let' RSpec method for cache data, each test will be reevaluated with a new card. 
+                                                          # Allows argument to be referenced each time its called
+                                                          # 'Let' only runs during the test being performed
+                                                          # 'let!' = forces the code to run similar to 'before' method
+
+  it 'has a rank and that rank can change' do    
+    expect(card.rank).to eq('Ace')    
+    card.rank = "Queen"                                    #Tests that writer method is working as intended
+    expect(card.rank).to eq('Queen')
+  end
+  it 'has a suit' do    
+    expect(card.suit).to eq('Spades')    
+  end
+  it 'has a custom error message' do
+    comparison = 'Spade'
+    expect(card.suit).to eq(comparison),                              # 'to' method has capability to accept a second string argument
+                        "Hey, I expected #{comparison}, 
+                          but i got #{card.suit} instead"
+  end
+end
 
 
 
